@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "ManageAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-primary {
+        font-size: larger;
+    }
+
+    .btn {
+        width: 300px;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+
+<h2>Choose the Month You want to upload</h2>
+<br />
+
+
+@Html.ActionLink(DateTime.Now.AddMonths(-1).ToString("MMMM"), "ExcelUpload", "ExcelDemo", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink(DateTime.Now.AddMonths(-2).ToString("MMMM"), "ExcelUpload", "ExcelDemo2", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink(DateTime.Now.AddMonths(-3).ToString("MMMM"), "ExcelUpload", "ExcelDemo3", null, new { @class = "btn btn-primary" })
+
+
+
+<br />
+<br />
+<h2>Admin Controls</h2>
+<br />
+<br />
+
+@Html.ActionLink("Reset Password For Employee", "Reset", "Home", null, new { @class = "btn btn-primary" })
+
+<br />
+<br />
+@Html.ActionLink("Add New Employee", "Add", "Home", null, new { @class = "btn btn-primary" })
+
+
+
+<br />
+<br />
+@Html.ActionLink("Edit Table View For Employees", "TableValid", "Home", null, new { @class = "btn btn-primary" })
+
+<br />
+<br />
+@Html.ActionLink("Manage Sites", "viewSites", "Admin", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Process Salary For Current Month", "ProcessSalary", "SitePortal", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Set date of Salary for Current Month", "EnterCurrentDate", "SitePortal", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Upload Salary Details for Current Month", "ExcelUpload", "uploadSalaryExcel", null, new { @class = "btn btn-primary" })
+
+<br />
+<br />
+@Html.ActionLink("Generate Current Month Report in Excel", "ExportClientsListToCSV", "SitePortal", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Add/Edit Sites", "Index", "Site", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Add/Edit Sub Contractors", "Index", "SubContractor", null, new { @class = "btn btn-primary" })

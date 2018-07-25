@@ -1,0 +1,144 @@
+﻿@model CheminPayslip.Models.MasterSiteViewModel
+@{
+    ViewBag.Title = "AddlocalEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<h2>AddlocalEmployee</h2>
+
+<br />
+<br />
+
+@using (Html.BeginForm("AddEmployee", "SitePortal",new {user =@Model.user}))
+{
+<div class="form-group">
+    <hr />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(m => m.Placeid)
+    @Html.TextBoxFor(m => m.Placeid, null, new { @readonly = "readonly", @class = "form-control" })
+
+    @Html.LabelFor(m => m.name)
+    @Html.TextBoxFor(m => m.name, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.name, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(m => m.fname)
+    @Html.TextBoxFor(m => m.fname, null, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.Design)
+    @Html.TextBoxFor(m => m.Design, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.Design, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(m => m.dob)
+    @Html.EditorFor(m => m.dob, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.dob, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+    @Html.LabelFor(m => m.doj)
+    @Html.EditorFor(m => m.doj, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.doj, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+    @Html.LabelFor(m => m.perdaysalary)
+    @Html.TextBoxFor(m => m.perdaysalary, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.perdaysalary, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(m => m.otpperhour)
+
+    @Html.TextBoxFor(m => m.otpperhour, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.BankName)
+    @Html.TextBoxFor(m => m.BankName, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.bankacno)
+    @Html.TextBoxFor(m => m.bankacno, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.branch)
+    @Html.TextBoxFor(m => m.branch, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.ifsccode)
+    @Html.TextBoxFor(m => m.ifsccode, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.address)
+    @Html.TextAreaFor(m => m.address, new { @class = "form-control" })
+    @Html.LabelFor(m => m.state)
+    @Html.TextBoxFor(m => m.state, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.pincode)
+    @Html.TextBoxFor(m => m.pincode, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.phoneno)
+    @Html.TextBoxFor(m => m.phoneno, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.phoneno, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(m => m.emailId)
+    @Html.TextBoxFor(m => m.emailId, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.emailId, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(m => m.aadharno)
+    @Html.TextBoxFor(m => m.aadharno, null, new { @class = "form-control" })
+    <br />
+    <br />
+    @Html.ValidationMessageFor(m => m.aadharno, null, new { @class = "alert alert-danger" })
+    <br />
+    <br />
+    @Html.LabelFor(m => m.panno)
+    @Html.TextBoxFor(m => m.panno, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.SubContractor)
+    @Html.DropDownListFor(m => m.SubId,Model.SubContractor, new { @class = "form-control" })
+    @Html.LabelFor(m => m.pfuan)
+    @Html.TextBoxFor(m => m.pfuan, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.pfelig)
+    @Html.CheckBoxFor(m => m.pfelig, new { @class = "form-control" })
+    @Html.LabelFor(m => m.esielig)
+    @Html.CheckBoxFor(m => m.esielig, new { @class = "form-control" })
+
+
+    <input type="submit" value="Submit" class="btn btn-primary" />
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+}
+
+

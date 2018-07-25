@@ -1,0 +1,98 @@
+﻿@model CheminPayslip.Models.SiteAdminViewModel
+@{
+    ViewBag.Title = "manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<h2>Please choose from below</h2>
+<br />
+<br />
+@if (Model.DefaultId > 0)
+{
+    foreach (var site in Model.SubContractor)
+    {
+        if (Model.user != "coord")
+        {
+            <div class="btn btn-default">
+                @Html.ActionLink("Add/Edit for " + site.SubContractorName, "ViewSite", "SitePortal", new { id = site.SubContractId, user = Model.user }, null)
+            </div>
+
+            <div class="btn btn-primary">
+                @Html.ActionLink("View Monthly Report For " + site.SubContractorName.ToString(), "GenerateReportForSub", "SitePortal", new { id = site.SubContractId }, null)
+            </div>
+            <br />
+        }
+        else
+        {
+            <div class="btn btn-primary">
+                @Html.ActionLink("View Monthly Report For " + site.SubContractorName.ToString(), "GenerateReportForSub", "SitePortal", new { id = site.SubContractId }, null)
+            </div>
+            <br />
+        }
+
+    }
+    if (Model.user != "coord")
+    {
+        <div class="btn btn-default">
+            @Html.ActionLink("Add/Edit For Direct", "Default", "SitePortal", new { id = Model.DefaultId, user = Model.user }, null)
+
+        </div>
+
+        <div class="btn btn-primary">
+            @Html.ActionLink("Add/Edit for View Monthly Report For Direct Employees", "ViewSubForDirect", "SitePortal", new { id = Model.DefaultId }, null)
+        </div>
+        <br />
+    }
+    else
+    {
+        <div class="btn btn-primary">
+            @Html.ActionLink("Add/Edit for View Monthly Report For Direct Employees", "ViewSubForDirect", "SitePortal", new { id = Model.DefaultId }, null)
+        </div>
+        <br />
+    }
+
+}
+@if (Model.Default == "Direct")
+{
+    if (Model.user != "coord")
+    {
+        <div class="btn btn-default">
+            @Html.ActionLink("Add/Edit for Direct", "Default", "SitePortal", new { id = Model.DefaultId, user = Model.user }, null)
+        </div>
+        <br />
+        <div class="btn btn-primary">
+            @Html.ActionLink("View Monthly Report For Direct Employees", "ViewSubForDirect", "SitePortal", new { id = Model.DefaultId }, null)
+        </div>
+
+    }
+    else
+    {
+        <div class="btn btn-primary">
+            @Html.ActionLink("View Monthly Report For Direct Employees", "ViewSubForDirect", "SitePortal", new { id = Model.DefaultId }, null)
+        </div>
+        <br />
+    }
+
+
+
+
+}
+<br />
+<br />
+@if (Model.user == "admin")
+{
+    <span class="btn btn-primary">
+        @Html.ActionLink("Generate Current Month Report in Excel", "ExportClientList", "SitePortal", new { id = Model.DefaultId },null)
+
+    </span>
+
+
+}
+
+
+<br />
+<br />
+@Html.ActionLink("<- Go Back", "Goback", "SitePortal", new { query = Model.user }, null)
+
+

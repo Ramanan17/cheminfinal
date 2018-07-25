@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemin</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-inverse {
+            background-color: #0000FF
+        }
+
+        a.my-class {
+            color: floralwhite;
+            font-weight: bolder;
+            font-size: medium;
+        }
+
+        #header h1 {
+            margin: 0px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/mdb/mdb.min.css" />
+    <link rel="stylesheet" href="~/assets/mdb/style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
+<body background="~/assets/images/background-skype-meetings-blue-mobile.jpg" style="background-position: center; background-repeat: no-repeat;background-size: cover; ">
+
+    <div class="navbar navbar-inverse navbar-light navbar-fixed-top">
+        <img src="~/cheminlogo.gif" align="left" title="" style="height: 6.0rem;">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { Style = "color:White;font-size:x-large;font-weight:bolder" })</li>
+                    <li>@Html.ActionLink("Login", "Index", "Login", null, new { Style = "color:White;font-size:x-large;font-weight:bolder" })</li>
+                    <li>@Html.ActionLink("Admin", "Index", "Admin", null, new { Style = "color:White;font-size:x-large;font-weight:bolder" })</li>
+                    <li>@Html.ActionLink("LocalHelpers Payslip","Index","localPayslip",null,new { Style = "color:White;font-size:x-large;font-weight:bolder"})</li>
+                    <li>@Html.ActionLink("SitePortal","Index","SitePortal",null,new { Style = "color:White;font-size:x-large;font-weight:bolder"})</li>
+                    <li>@Html.ActionLink("Coordinators","Index","Coordinator",null,new { Style = "color:White;font-size:x-large;font-weight:bolder"})</li>
+
+                    </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <footer>
+            <p style="color:white">&copy; @DateTime.Now.Year - Chemin</p>
+            
+            <p style="color:white"> Developed by</p>
+            
+            <p style="color: white">B.Ramanan</p>
+           
+            <p style="color: white">Indian Institute of Space Science and Technology</p>
+            
+            <p style="color: white">Email:ramananbala7@gmail.com</p>
+
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+<script src="~/assets/mdb/mdb.min.js"></script>

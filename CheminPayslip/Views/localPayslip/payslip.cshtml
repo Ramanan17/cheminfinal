@@ -1,0 +1,225 @@
+﻿@model CheminPayslip.Models.localpaymodel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+@{ DateTime date = Model.Master.date.AsDateTime();}
+<div class="container">
+    <div class="jumbotron">
+        <h2 align="center" style="font-weight: bold; color: blue">CHEMIN C&I PRIVATE LIMITED </h2>
+        <h3 align="center" style="color: blue">C 102-106,110-114, 17th Cross, PIPDIC Industrial Estate, Mettupalayam, Puducherry - 605009.</h3>
+        <h5 align="center" style="color: blue">Phone: 0413 - 227 1155/7685/7975 | FAX: 0413 227 7684</h5>
+        <h5 align="center" style="color: blue">Email: hrd@chem-in.com | Website: www.chem-in.com</h5>
+    </div>
+</div>
+<br />
+<br />
+<h4 align="center" style="font-weight: bold">Salary Payslip for Local Employee / Consultant</h4>
+<br />
+<h5 style="font-weight: bold">Place : @Model.PlaeName</h5>
+<br/>
+@if (Model.SubcontractorName != "Direct")
+{
+    <h5 style="font-weight: bold">SubContractor : @Model.SubcontractorName</h5>
+}
+<br/>
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <td><h4 style="font-weight: bold">PaySlip for the month of  @date.ToString("MMMM") </h4></td>
+        <td>Account No : @Model.Master.bankacno</td>
+        <td>Bank Name : @Model.Master.BankName</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Name : @Model.Master.name</td>
+        <td>Id : @Model.Master.EmpId</td>
+        <td>
+            PFUAN : @Model.Master.pfuan
+        </td>
+
+    </tr>
+    <tr>
+        <td>Designation : @Model.Master.Design</td>
+        <td>ESICode : @Model.Master.esi</td>
+        <td>IFSC Code : @Model.Master.ifsccode</td>
+    </tr>
+    </tbody>
+
+
+</table>
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <td>Earnings</td>
+        <td>Value</td>
+        <td>Deductions</td>
+        <td>Amount</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            Per Day Salary
+        </td>
+        <td align="right">
+            @Model.Master.perdaysalary
+        </td>
+        <td>
+            Advance
+
+        </td>
+        <td align="right">
+            @Model.Master.advance
+        </td>
+        
+
+    </tr>
+    <tr>
+        <td>
+            No of Days Worked
+        </td>
+        <td align ="right">
+            @Model.Master.nod
+        </td>
+        <td>
+            Recovery
+        </td>
+        <td align="right">
+            @Model.Master.revocery
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Total 
+        </td>
+        <td align="right">
+            @Model.Master.total
+        </td>
+        <td > PF</td>
+        <td align="right">
+            @Model.Master.pf
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            No of Days COFF
+        </td>
+        <td align ="right">
+            @Model.Master.nodcoff
+        </td>
+        <td>
+            ESI
+        </td>
+        <td align="right">
+            @Model.Master.esi
+        </td>
+    </tr>
+    <tr>
+        <td >
+            COFF Amount
+        </td>
+        <td align ="right">
+            @Model.Master.coggamt
+        </td>
+        <td>
+            Professional Tax
+        </td>
+        <td align="right">
+            @Model.Master.ptax
+        </td>
+        
+        
+    </tr>
+    <tr>
+        <td>
+            OT per Hour
+        </td>
+        <td align="right">
+            @Model.Master.otpperhour
+        </td>
+        <td>
+            TDS
+        </td>
+        <td align="right">
+            @Model.Master.TDS
+        </td>
+
+
+    </tr>
+    <tr>
+        <td>
+            No of Hours
+        </td>
+        <td align="right">
+            @Model.Master.nohours
+        </td>
+        <td>Deduction Total</td>
+        <td align="right">@Model.Master.dedtot</td>
+        
+    </tr>
+    <tr>
+        <td>
+            OT Amount
+        </td>
+        <td align="right">
+            @Model.Master.otamt
+        </td>
+        <td>Net Wages</td>
+        <td align="right" style="font-weight: bold">@Model.Master.netwages</td>
+
+    </tr>
+    <tr>
+        <td>TEA</td>
+        <td align="right">@Model.Master.TEA</td>
+       
+    </tr>
+    <tr>
+        <td>House Rent</td>
+        <td align="right">@Model.Master.HouseRent</td>
+        
+    </tr>
+    <tr>
+        <td>Other ALlowances</td>
+        <td align="right">@Model.Master.otherallow</td>
+    </tr>
+    <tr>
+        <td>Gross Wages</td>
+        <td align="right" style="font-weight: bold">@Model.Master.grosswages</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<br/>
+<h4 style="font-weight: bold">Leave Details</h4>
+<br/>
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>
+            CL-Credit
+        </td>
+        <td align="right">
+            @Model.Master.clcr
+        </td>
+        <td align="right">
+            CL-Balance
+        </td>
+        <td align ="right">
+            @Model.Master.clbal
+        </td>
+        <td align ="right">
+            Cl-Credit
+        </td>
+        <td align="right">
+            @Model.Master.clcr
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,27 @@
+﻿@model List<CheminPayslip.Models.Site>
+@{
+    ViewBag.Title = "ManageSites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn {
+        width: 200px;
+    }
+</style>
+<br/>
+<br/>
+<br/>
+<h2>Choose your Site</h2>
+<br/>
+<br/>
+@foreach (var site in Model)
+{
+    <span class="btn btn-primary col-md-12 col-sm-12 col-lg-12">
+        @Html.ActionLink(site.PlaceName,"SiteEdit","SitePortal",new{id=site.Placeid,user = "admin"},null)
+    </span>
+  
+    }
+
+<br/>
+<br/>
+@Html.ActionLink("<-Go Back","Manage","Home",null,new {@class="btn btn-amber"})

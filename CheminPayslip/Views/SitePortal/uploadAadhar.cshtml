@@ -1,0 +1,78 @@
+﻿@model CheminPayslip.Models.UploadImage
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+@if (!Model.isValid)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        @Model.ErrorMessage
+    </div>
+}
+<br />
+<h2>Please upload the aadhar image only in jpg format</h2>
+<br />
+<br />
+@using (Html.BeginForm("FileUpload", "SitePortal", new { id = Model.EmpId,user = Model.User }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input class="btn btn-primary" type="file" name="file" id="file" value="Choose Photo For Aadhar Card" />
+    <br />
+    <br />
+    <input type="submit" name="submit" value="Submit" />
+}
+<br />
+@{ string image = "Emp" + Model.EmpId.ToString() + ".jpg";}
+<br />
+
+<br />
+
+
+<br />
+<span class="btn btn-danger">
+    @Html.ActionLink("Delete Aadhar Image", "DeleteImageForAadhar", "SitePortal", new { filename = image, id = Model.EmpId ,user=Model.User}, null)
+
+</span>
+<br />
+<h3>Please upload Image for Bank Pass Book in JPG format</h3>
+<br />
+@using (Html.BeginForm("FileUploadForBank", "SitePortal", new { id = Model.EmpId,user=Model.User }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input class="btn btn-primary" type="file" name="file" id="file" value="Choose Photo For Bank Pass Book" />
+    <br />
+    <br />
+    <input type="submit" name="submit" value="Submit" />
+}
+<br />
+<br />
+<span class="btn btn-danger">
+    @Html.ActionLink("Delete Bank Pass Book Image", "DeleteImageForBank", "SitePortal", new { filename = image, id = Model.EmpId ,user = Model.User}, null)
+
+</span>
+<br/>
+<br/>
+@if (Model.subId == 0 && Model.placeId !=0)
+{
+    <span class="btn btn-amber">
+        @Html.ActionLink("Go Back","Default","SitePortal",new { id = Model.placeId,user = Model.User},null)
+    </span>
+}
+else
+{
+    <span class="btn btn-amber">
+        @Html.ActionLink("Go Back","ViewSite","SitePortal",new { id = Model.subId,user = Model.User},null)
+    </span>
+}
+
+
+
+
+

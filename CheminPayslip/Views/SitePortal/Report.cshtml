@@ -1,0 +1,215 @@
+﻿@model CheminPayslip.Models.PlaceReportModel
+
+<html>
+<head>
+    <style>
+        .table {
+            table-layout: inherit;
+        }
+
+
+
+        .pagebreak {
+            page-break-before: always;
+        }
+        .container {
+            padding: 0px;
+            margin: 0;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+        }
+        body {
+            margin: 0;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+        }
+    </style>
+</head>
+<body>
+<br/>
+<br/>
+
+<h1 align="center" style="font-weight: bold">Place Wise Report</h1>
+<br/>
+<br/>
+<button onclick="exporttocsv()">
+    Download as CSV
+</button>
+
+
+<div id="mytable">
+    <br/>
+    <br/>
+    @{float? grosstot = 0;}
+    @{ float? pftot = 0;}
+    @{ float? esitot = 0;}
+    @{ float? dedtot = 0;}
+    @{ float? empl = 0;}
+
+
+    @{ float? netwagetotal = 0; }
+    @{ string subcontractorName = string.Empty;}
+
+
+
+    @foreach (var place in Model.Sites)
+    {
+    <div class="pagebreak">
+        <br/>
+        <br/>
+        <h2 align="center" style="font-weight: bold">@place.PlaceName</h2>
+        <br/>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td>
+                    Employee Id
+                </td>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Designation
+                </td>
+
+                <td>
+                    Total
+                </td>
+
+
+                <td>
+                    OT-Amount
+                </td>
+
+                <td>
+                    Gross Wages
+                </td>
+
+                <td>
+                    PF
+                </td>
+                <td>
+
+                    Esi
+                </td>
+
+                <td>
+                    Deduction Total
+                </td>
+                <td>
+                    Net Wages
+                </td>
+
+                <td>
+                    PFUAN
+                </td>
+
+                <td> Bank Name</td>
+                <td>Bank Account No</td>
+                <td>Branch</td>
+                <td>IFSC Code</td>
+                <td>ESI Code</td>
+
+
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var emp in Model.Employees)
+            {
+                foreach (var sub in Model.SubContracts)
+                {
+                    if (emp.SUBID == sub.SubContractId)
+                    {
+                        <tr>
+                            <td>
+                                @emp.EmpId
+                            </td>
+                            <td>
+                                @emp.name
+                            </td>
+
+
+                            <td>
+                                @emp.Design
+                            </td>
+
+
+
+                            <td>@emp.total</td>
+
+                            <td>@emp.otamt</td>
+
+                            <td>@emp.grosswages</td>
+
+                            <td>@emp.pf</td>
+                            <td>@emp.esi</td>
+
+                            <td>@emp.dedtot</td>
+                            <td>@emp.netwages</td>
+                            <td>@emp.pfuan</td>
+
+                            <td>@emp.BankName</td>
+                            <td>@emp.bankacno</td>
+                            <td>@emp.branch</td>
+                            <td>@emp.ifsccode</td>
+                            <td>@emp.esicode</td>
+
+                            @{ grosstot = grosstot + emp.grosswages;}
+                            @{ netwagetotal = netwagetotal + emp.netwages;}
+                            @{ esitot = esitot + emp.esi;}
+                            @{ pftot = pftot + emp.pf;}
+                            @{ dedtot = dedtot + emp.dedtot;}
+                            @{ empl = pftot * 2;}
+
+
+
+                        </tr>
+
+                    }
+
+                }
+
+            }
+
+
+            </tbody>
+        </table>
+        <br/>
+
+        <h4 style="font-weight: bold; color: yellow">Employee+Employer= @empl </h4>
+        <br/>
+        <h4 style="font-weight: bold; color: yellow">Admin Charges as per Govt = @(grosstot * 0.086 / 100)</h4>
+        <br/>
+        <h4 style="font-weight: bold; color: yellow">Net total for pf = @pftot</h4>
+        <br/>
+        <h4 style="font-weight: bold; color: yellow">Net total for esi = @esitot</h4>
+        <br/>
+        <h4 style="font-weight: bold; color: yellow">Net Wages = @netwagetotal</h4>
+        <br/>
+        <br/>
+    </div>
+    }
+
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.tabletoCSV.js"></script>
+
+    <script type="text/javascript">
+        function exporttocsv() {
+            $("#mytable").tableToCSV({
+                filename: 'Place List'
+            });
+        }
+    </script>
+}
+
+</body>
+</html>

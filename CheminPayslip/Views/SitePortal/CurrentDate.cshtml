@@ -1,0 +1,19 @@
+﻿@model CheminPayslip.Models.SetCurrentDate
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+<h2>Please enter the Current Date of Salary for all employees</h2>
+@using (Html.BeginForm("SetSalary","SitePortal"))
+{
+<div class="form-group">
+    @Html.Label("Set Current Month of Salary of all employees")
+    @Html.EditorFor(m => m.date, new { htmlAttributes = new { @class = "datepicker" } })
+    <br />
+    <button class="btn btn-primary">Submit</button>
+</div>
+}

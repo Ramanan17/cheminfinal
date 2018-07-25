@@ -1,0 +1,22 @@
+﻿@model CheminPayslip.Models.CoordViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+<h2>CoOrdinator-Login</h2>
+<br/>
+<br/>
+@using (Html.BeginForm("Login", "Coordinator"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+    </div>
+    <br/>
+    <br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

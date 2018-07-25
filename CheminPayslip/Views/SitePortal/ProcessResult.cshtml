@@ -1,0 +1,28 @@
+﻿@model CheminPayslip.Models.ProcessSalary
+@{
+    ViewBag.Title = "ProcessResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+<br/>
+@if (Model.IsSuccessful)
+{
+    <div class="alert alert-success">
+        Monthly Details added successfully
+       @ViewBag.Message
+    </div>
+
+}
+else
+{
+    <div class="alert alert-danger">
+        There is Some Problem please contact Administrator
+    </div>
+}
+<br/>
+<br/>
+@Html.ActionLink("Go Back","Manage","Home",null,new {@class="btn btn-primary"});
+`
+

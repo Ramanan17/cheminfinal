@@ -1,0 +1,288 @@
+﻿@using System.IdentityModel.Configuration
+@model CheminPayslip.Models.EmployeeDetails3
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        font-size: larger;
+    }
+    #total {
+
+        font-weight: bold;
+    }
+
+
+     
+</style>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="container" >
+    <div class="jumbotron">
+        <h3 align="center" style="font-weight: bold; color: blue">CHEMIN C&I PRIVATE LIMITED </h3>
+        <h3 align="center" style="color: blue">C 102-106,110-114, 17th Cross, PIPDIC Industrial Estate, Mettupalayam, Puducherry - 605009.</h3>
+        <h5 align="center" style="color: blue">Phone: 0413 - 227 1155/7685/7975 | FAX: 0413 227 7684</h5>
+        <h5 align="center" style="color: blue">Email: hrd@chem-in.com | Website: www.chem-in.com</h5>
+
+    </div>
+</div>
+<h4 style="font-weight: bolder">@Model.Place</h4>
+
+<h4>Bank Accout Number : @Model.BANKAC</h4>   
+
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>
+            <h2>PaySlip for the Month of @Model.Date</h2>
+        </td>
+       
+        <td>
+            Bank Name :@Model.BANKNAME
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Name : @Model.Name
+        </td>
+        <td>
+            Employee Id :@Model.EmployeeId
+        </td>
+        <td>
+            PFUAN : @Model.PFUAN
+        </td>
+    </tr>
+
+    <tr>
+
+        <td>Designation : @Model.DESIGNATION</td>
+        <td>ESICODE : @Model.ESICODE</td>
+        <td>Grade : @Model.GRADE</td>
+    </tr>
+</table>
+<table style="border-style:solid" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Earnings</td>
+            <td>Value</td>
+            <td>Deductions</td>
+            <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Basic</td>
+            <td align="right">@Model.BASIC</td>
+            <td>PF</td>
+            <td align="right">@Model.PF</td>
+        </tr>
+        <tr>
+            <td>DA</td>
+            <td align="right">@Model.DA</td>
+            <td>ESI</td>
+            <td align="right">@Model.ESI</td>
+        </tr>
+        <tr>
+            <td>HRA</td>
+            <td align="right">@Model.HRA</td>
+            <td>Insurance</td>
+            <td align="right">@Model.LIC</td>
+        </tr>
+        <tr>
+            <td>Arrears</td>
+            <td align="right">@Model.ARREAR</td>
+            <td>Excess Pay</td>
+            <td> @Model.EXCESS_PAY</td>
+
+        </tr>
+        <tr>
+            <td>LayOff</td>
+            <td align="right">@Model.LAYOFF</td>
+            <td>House Rent</td>
+            <td align="right">@Model.HOUSE_RENT</td>
+        </tr>
+        <tr>
+            <td>Stipend</td>
+            <td align="right">@Model.STIPEND</td>
+            <td>Marriage Loan</td>
+            <td align="right">@Model.MARRADV</td>
+        </tr>
+        <tr>
+            <td>UMA</td>
+            <td align="right">@Model.UMA</td>
+            <td>Salary Advance</td>
+            <td align="right">@Model.SALADV</td>
+        </tr>
+        <tr>
+            <td>SITE</td>
+            <td align="right">@Model.SITE</td>
+            <td>Emergency Advance</td>
+            <td align="right">@Model.EMERADV</td>
+
+
+        </tr>
+        <tr>
+            <td>Distance</td>
+            <td align="right">@Model.DISTANCE</td>
+            <td>Max Insurance</td>
+            <td align="right">@Model.MAXINS</td>
+
+        </tr>
+        <tr>
+            <td>Conveyance</td>
+            <td align="right">@Model.LOCAL_CONVEY</td>
+            <td>Income Tax</td>
+            <td align="right">@Model.INCOMETAX</td>
+        </tr>
+        <tr>
+            <td>Responsibility</td>
+            <td align="right">@Model.RESPONSIBILITY</td>
+            <td><h5 style="font-weight: bolder">Total Deductions</h5></td>
+            <td id="total" align="right">@Model.DEDTOTAL</td>
+        </tr>
+        <tr>
+            <td>Site Stipend</td>
+            <td align="right">@Model.SITESTIPEND</td>
+            <td>Net Salary</td>
+            <td id="total" align="right">@Model.NETTOTAL</td>
+        </tr>
+        <tr>
+            <td>Books and Magazines</td>
+            <td align="right">@Model.FMA</td>
+            <td>Others</td>
+        </tr>
+        <tr>
+            <td>Attendence Incentive</td>
+            <td align="right">@Model.ATTINC</td>
+            <td>OverTime Hours</td>
+            <td align="right">@Model.OT_HOURS</td>
+        </tr>
+        <tr>
+            <td>Compensatory off</td>
+            <td align="right">@Model.COMPOFF</td>
+            <td>Emergency Advance Installment no :</td>
+            <td align="right">@Model.ADVINSTNO</td>
+        </tr>
+        <tr>
+            <td>
+                Project
+            </td>
+            <td align="right">
+                @Model.PROJECT
+            </td>
+            <td>
+                Marriage Advance Installlmennt No :
+            </td>
+            <td align="right">
+                @Model.MADVINSTNO
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Over Time
+            </td>
+            <td align="right">
+                @Model.OT
+            </td>
+
+        </tr>
+        <tr>
+            <td >
+                Vehicle Allowance
+            </td>
+            <td align="right">
+                @Model.VA
+            </td>
+
+        </tr>
+        <tr>
+            <td>Others</td>
+            <td align="right">@Model.HARD</td>
+        </tr>
+        <tr>
+            <td>Food Subsidy HO</td>
+            <td align="right">@Model.FOODHO</td>
+        </tr>
+        <tr>
+            <td>Food Subsidy Site</td>
+            <td align="right">@Model.FOODSITE</td>
+        </tr>
+        <tr>
+            <td>House Rent</td>
+            <td align="right">@Model.HOUSE_RENT</td>
+        </tr>
+        <tr>
+            <td>Gross Salary</td>
+            <td id="total" align="right">@Model.TOTAL</td>
+        </tr>
+        <tr>
+            <td>Total CTC</td>
+            <td id="total" align="right">@Model.CTC</td>
+        </tr>
+
+        <tr>
+            <td><h5 style="font-weight: bold">Other Disbursement</h5></td>
+            <td id="total" align="right">@Model.OTHERDISBURSEMENT</td>
+        </tr>
+
+    </tbody>
+</table>
+<br />
+<table style="border-style:solid" class="table table-hover table-bordered">
+    <tr>
+        <td>Site 1</td>
+        <td align="right">@Model.SITE1DAYS</td>
+        <td>Site 2</td>
+        <td align="right">@Model.SITE2DAYS</td>
+    </tr>
+    <tr>
+        <td>Site 3</td>
+        <td align="right">@Model.SITE3DAYS</td>
+        <td>No of Days in HO/Factory</td>
+        <td align="right">@Model.HODAYS</td>
+    </tr>
+</table>
+<table style="border-style:solid" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <td></td>
+            <td><h6 style="font-weight: bolder">Eligibility Days</h6></td>
+            <td><h6 style="font-weight: bolder">Availed</h6></td>
+            <td><h6 style="font-weight: bolder">Closing Balance</h6></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><h5 style="font-weight: bolder">Casual Leave</h5></td>
+            <td align="right">@Model.CLCR</td>
+            <td align="right">@Model.CLT</td>
+            <td align="right">@Model.CLBAL</td>
+        </tr>
+        <tr>
+            <td><h5 style="font-weight: bolder">Sick Leave</h5></td>
+            <td align="right">@Model.MLCR</td>
+            <td align="right">@Model.MLT</td>
+            <td align="right">@Model.MLBAL</td>
+        </tr>
+        <tr>
+            <td><h5 style="font-weight: bolder">Earned Leave</h5></td>
+            <td align="right">@Model.ELCR</td>
+            <td align="right">@Model.ELT</td>
+            <td align="right">@Model.ELBAL</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<table>
+
+    <tr>
+        <td>Remarks</td>
+    </tr>
+    <tr>
+        <td align="right">@Model.Remarks</td>
+    </tr>
+</table>
+<br />
+@Html.ActionLink("Reset Password", "ResetPassword", new { @class = "btn btn-link" })

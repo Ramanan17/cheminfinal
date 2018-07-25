@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "uploadSalary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Upload Salary Sheet in CSV</h2>
+<div align="center">  
+    @if (ViewBag.Message != null)  
+    {  
+        <span class="alert alert-warning"> @ViewBag.Message</span>  
+    }  
+    
+    <div align="right" class="btn btn-default">  
+        @using (Html.BeginForm("UploadExcel", "ExcelDemo", FormMethod.Post, new { @enctype = "multipart/form-data" }))  
+        {  
+            <input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br />  
+            <input type="submit" class="btn btn-primary" name="UploadNewEmployee" id="fileUploadExcel" value="Upload Salary Details" />  
+        }  
+    </div>  
+</div>
+
+
+@section scripts
+{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>  
+  
+        $('#fileUploadExcel').click(function (e) {  
+            if ($('#fileUpload').val() === "")   
+            {  
+                sweetAlert("Oops...!!!", "Please select file", "error");  
+                return false;  
+            }  
+  
+        });  
+  
+    </script>  
+}

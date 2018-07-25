@@ -1,0 +1,57 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@model CheminPayslip.Models.ValidateLogin
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add User</title>
+</head>
+<style>
+    .btn-primary {
+        font-size: larger;
+    }
+</style>
+<body>
+    <h2>Add User</h2>
+
+    <br />
+    <br />
+    @if (Model.EmployeeID == 0)
+    {
+        <div>
+            <h2>Enter the Employee Details</h2>
+        </div>
+    }
+    else if (!Model.Valid)
+    {
+        <div class="alert-danger">
+            @Model.ErrorMessage
+        </div>
+    }
+    else if (Model.Valid)
+    {
+        <div class="alert-success">
+            @Model.ErrorMessage
+        </div>
+
+    }
+    <br />
+    <br />
+
+    <div>
+        @using (Html.BeginForm("AddUser", "Home"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.EmployeeID)
+                @Html.TextBoxFor(m => m.EmployeeID, null, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password, null, new { @class = "form-control" })
+
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        }
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+﻿@model CheminPayslip.Models.ReportModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table {
+        table-layout: inherit;
+    }
+
+
+
+    .pagebreak {
+        page-break-before: always;
+    }
+    .container {
+        padding: 0px;
+        margin: 0;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+    body {
+        margin: 0;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+</style>
+@{float? grosstot = 0;}
+@{ float? pftot = 0;}
+@{ float? esitot = 0;}
+@{ float? dedtot = 0;}
+@{ float? empl = 0;}
+
+
+@{ float? netwagetotal = 0; }
+@{ string subcontractorName = string.Empty;}
+<br/>
+<br/>
+<br/>
+<h2>Monthly details for the Site @Model.PlaceName</h2>
+<br/>
+<br/>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <td>
+            Employee Id
+        </td>
+        <td>
+            Name
+        </td>
+        <td>
+            Designation
+        </td>
+
+        <td>
+            Total
+        </td>
+
+
+        <td>
+            OT-Amount
+        </td>
+
+        <td>
+            Gross Wages
+        </td>
+
+        <td>
+            PF
+        </td>
+        <td>
+
+            Esi
+        </td>
+
+        <td>
+            Deduction Total
+        </td>
+        <td>
+            Net Wages
+        </td>
+
+        <td>
+            PFUAN
+        </td>
+
+        <td> Bank Name</td>
+        <td>Bank Account No</td>
+        <td>Branch</td>
+        <td>IFSC Code</td>
+        <td>ESI Code</td>
+
+
+
+    </tr>
+
+    </thead>
+    <tbody>
+    @foreach (var emp in Model.Employees)
+    {
+        <tr>
+            <td>
+                @emp.EmpId
+            </td>
+            <td>
+                @emp.name
+            </td>
+
+
+            <td>
+                @emp.Design
+            </td>
+
+
+
+            <td>@emp.total</td>
+
+            <td>@emp.otamt</td>
+
+            <td>@emp.grosswages</td>
+
+            <td>@emp.pf</td>
+            <td>@emp.esi</td>
+
+            <td>@emp.dedtot</td>
+            <td>@emp.netwages</td>
+            <td>@emp.pfuan</td>
+
+            <td>@emp.BankName</td>
+            <td>@emp.bankacno</td>
+            <td>@emp.branch</td>
+            <td>@emp.ifsccode</td>
+            <td>@emp.esicode</td>
+
+            @{ grosstot = grosstot + emp.grosswages; }
+            @{ netwagetotal = netwagetotal + emp.netwages; }
+            @{ esitot = esitot + emp.esi; }
+            @{ pftot = pftot + emp.pf; }
+            @{ dedtot = dedtot + emp.dedtot; }
+            @{ empl = pftot * 2; }
+
+
+
+        </tr>
+
+    }
+    @{ esitot = (float?) (grosstot * (Model.EmployerEsi / 100)) + esitot;}
+    </tbody>
+</table>
+<h4 style="font-weight: bold; ">Employee+Employer= @empl </h4>
+<br/>
+<h4 style="font-weight: bold;">Admin Charges as per Govt = @(grosstot * 0.086 / 100)</h4>
+<br/>
+<h4 style="font-weight: bold;">Net total for pf = @pftot</h4>
+<br/>
+<h4 style="font-weight: bold;">Net total for esi = @esitot</h4>
+<br/>
+<h4 style="font-weight: bold;">Net Wages = @netwagetotal</h4>
+<br/>
+<br/>

@@ -1,0 +1,20 @@
+﻿@model CheminPayslip.Models.Site
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+
+<h2>Site Manager Portal</h2>
+
+<br/>
+<h2>@Model.PlaceName</h2>
+<hr/>
+<div class="btn btn-primary">
+    @Html.ActionLink("Add new Employee","Addlocal","SitePortal",new{id=Model.Placeid},null)
+</div>
+<div class="btn btn-primary">
+    @Html.ActionLink("Edit Employee Details","SiteEdit","SitePortal",new{id=Model.Placeid,user="site"},null)
+</div>

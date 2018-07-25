@@ -1,0 +1,63 @@
+﻿@model CheminPayslip.Models.SiteViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Site  Details</h2>
+
+@using (Html.BeginForm("ChangeDetails", "Site"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.PlaceId)
+        @Html.TextBoxFor(m => m.PlaceId, null, new { @readonly = "readonly", @class = "form-control" })
+        @Html.LabelFor(m => m.PlaceName)
+        @Html.TextBoxFor(m => m.PlaceName, null, new { @class = "form-control" })
+        @Html.LabelFor(m => m.EmployeeName, htmlAttributes: new { @class = "control-label" })
+        <br />
+        @Html.TextBoxFor(m => m.EmployeeName, null, new { @class = "form-control typeahead" })
+        <br />
+        @Html.LabelFor(m => m.PassWord)
+        @Html.PasswordFor(m => m.PassWord, new { @class = "form-control" })
+        <br/>
+        @Html.LabelFor(m => m.CoordPassword)
+        @Html.TextBoxFor(m => m.CoordPassword,null,new { @class="form-control"})
+        <br/>
+        @Html.LabelFor(m => m.EmployeeEsi)
+        @Html.TextBoxFor(m => m.EmployeeEsi,null, new { @class = "form-control" })
+        <br/>
+        @Html.LabelFor(m => m.EmployerEsi)
+        @Html.TextBoxFor(m => m.EmployerEsi, null, new { @class = "form-control" })
+
+
+        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+
+    </div>
+
+}
+
+@section scripts
+{
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            var employees = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+                remote: {
+                    url: '/api/Site/?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#EmployeeName').typeahead({ minLength: 1, highlight: true,limit:Infinity }, {
+                name: 'Employees',
+                display: 'Name',
+                source: employees
+            });
+        })
+    </script>
+
+}

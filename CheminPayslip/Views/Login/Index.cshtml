@@ -1,0 +1,67 @@
+﻿@using System.Web.Mvc.Html
+@model CheminPayslip.Models.ValidateLogin
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn {
+        font-size: larger;
+    }
+</style>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h2>Login</h2>
+
+@if (!Model.Valid)
+{
+    <div>
+        <br/>
+        <p class="alert-danger"> @Model.ErrorMessage</p>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+       
+
+    </div>
+}
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+
+@using (Html.BeginForm("Save", "Login"))
+{
+<div class="form-group">
+
+    <br/>
+    <br/>
+    @Html.LabelFor(m => m.EmployeeID)
+    @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control " })
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control  " })
+    <br/>
+    <br/>
+
+
+    @Html.LabelFor(m => m.Month)
+
+    @Html.DropDownListFor(m => m.MonthVal,Model.Month,new {@class="form-control"} )
+    <br/>
+    <br/>
+
+    @Html.ValidationMessageFor(m => m.MonthVal,null,new {@class="alert alert-danger"})
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</div>
+    
+}

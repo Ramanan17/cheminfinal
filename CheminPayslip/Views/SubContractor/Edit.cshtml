@@ -1,0 +1,59 @@
+﻿@model CheminPayslip.Models.SubcontractViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2>Edit SubContractor Details</h2>
+<br />
+<br />
+@if (!Model.Isvalid)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+<br />
+@using (Html.BeginForm("Edit", "SubContractor"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.SubContractId)
+        @Html.TextBoxFor(m => m.SubContractId, null, new { @class = "form-control" })
+        @Html.LabelFor(m => m.SubContractorName)
+        @Html.TextBoxFor(m => m.SubContractorName, null, new { @class = "form-control" })
+      
+        @Html.LabelFor(m => m.PlaceName, htmlAttributes: new { @class = "control-label" })
+        <br />
+        @Html.TextBoxFor(m => m.PlaceName, null, new { @class = "form-control typeahead" })
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+}
+@section scripts
+{
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            var employees = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+                remote: {
+                    url: '/api/SubContract/?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#PlaceName').typeahead({ minLenght: 1, highlight: true,limit:Infinity }, {
+                name: 'SiteName',
+                display: 'PlaceName',
+                source: employees
+            });
+        })
+    </script>
+
+}
+

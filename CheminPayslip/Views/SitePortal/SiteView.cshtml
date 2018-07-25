@@ -1,0 +1,141 @@
+﻿@using OfficeOpenXml.FormulaParsing.ExpressionGraph.FunctionCompilers
+@model CheminPayslip.Models.validateatsite
+@using System.Linq
+@using CheminPayslip.Models
+@{
+    ViewBag.Title = "SiteView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<br />
+<br />
+<br />
+<h2>Employees</h2>
+<br />
+
+
+@{ int placeid = 0;}
+@{ int subid = 0;}
+@foreach (var emp in Model.Employees)
+{
+    if (emp.placeid != null)
+    {
+        placeid = Convert.ToInt32(emp.placeid);
+        subid = (int) emp.SUBID;
+        break;
+    }
+}
+@{ var context = new ApplicationDbContext();}
+@{ var placename = context.SiteAdmin.SingleOrDefault(m => m.Placeid == placeid);}
+@{ var subname = context.Sub.SingleOrDefault(m => m.SubContractId == subid);}
+@if (subname == null)
+{
+    <h3>Details for Place
+        @if (placename != null)
+        {
+            @placename.PlaceName
+        }
+    </h3>
+}
+else
+{
+    <h3>Details for Place
+        @if (placename != null)
+        {
+            @placename.PlaceName
+        }
+         SubContractor @subname.SubContractorName </h3>
+}
+
+<span class="btn btn-deep-orange">
+    @Html.ActionLink("<-Go Back", "SiteEdit", "SitePortal", new { id = placeid, user = Model.User }, null)
+</span>
+<br />
+<span class="btn btn-amber">
+    @Html.ActionLink("Add Local Employee", "Addlocal", "SitePortal", new { id = placeid, user = Model.User }, null)
+</span>
+@if (Model.User == "admin")
+{
+    <span class="btn btn-primary">
+        @Html.ActionLink("Edit Issue Date","InitPage","Issue",new {id = placeid,subid=subid},null)
+    </span>
+
+}
+
+<br />
+
+<table id="table_id" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>EmployeeId</th>
+            <th>Employee Name</th>
+            <th>Designation</th>
+
+            <th>Edit Options</th>
+            <th>Delete Options</th>
+            <th>Salary Options</th>
+            <th>Upload Images</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model.Employees)
+        {
+
+            <tr>
+                <td>@emp.EmpId</td>
+                <td>@emp.name</td>
+                <td>@emp.Design</td>
+
+
+                <td>
+                    @if (Model.User == "admin")
+                    {
+                        <span class="btn btn-primary">
+                            @Html.ActionLink("Edit", "EditempSite", "SitePortal", new { id = @emp.EmpId }, null)
+                        </span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" disabled="disabled">Edit</button>
+
+                    }
+
+                </td>
+                <td>
+                    @if (Model.User == "admin")
+                    {
+                        <span class="btn btn-danger">
+                            @Html.ActionLink("Delete", "DeleteResult", "SitePortal", new { id = @emp.EmpId }, null)
+                        </span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger" disabled="disabled">Danger</button>
+
+                    }
+
+                </td>
+                <td>
+                    <span class="btn btn-primary">
+                        @Html.ActionLink("Update Salary Details", "EditSalaryDetails", new { id = @emp.EmpId, user = Model.User }, null)
+                    </span>
+                </td>
+                <td>
+                    <span class="btn btn-primary">
+                        @Html.ActionLink("Upload Images For Aadhar and Bank", "AddImage", new { id = @emp.EmpId, user = Model.User }, null)
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    </script>
+}

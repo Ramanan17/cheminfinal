@@ -1,0 +1,32 @@
+﻿@model CheminPayslip.Models.ValidateLogin
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn {
+        font-size: larger;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+
+<h2>
+    Admin Login
+
+
+</h2>
+@using (Html.BeginForm("Validate", "Admin"))
+{
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control " });
+    <button type="submit" #id="text" class="btn btn-primary">Submit</button>
+
+}
+@if (!@Model.Valid)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}

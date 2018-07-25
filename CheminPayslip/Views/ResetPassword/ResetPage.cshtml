@@ -1,0 +1,31 @@
+﻿@model CheminPayslip.Models.ResetPassword
+@{
+    ViewBag.Title = "ResetPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="alert-danger">@ViewBag.Message</div>
+<h2>Reset Password</h2>
+
+@using (Html.BeginForm("Reset", "ResetPassword"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m=>m.EmployeeId)
+        @Html.TextBoxFor(m=>m.EmployeeId, new { @class = "form-control " })    
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m=>m.OldPassword)
+        @Html.PasswordFor(m=>m.OldPassword,new { @class = "form-control " })    
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Password)
+        @Html.PasswordFor(m=>m.Password, new { @class = "form-control " })    
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m=>m.ConfirmPassword)
+        @Html.PasswordFor(m=>m.ConfirmPassword, new { @class = "form-control " })    
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+}
+

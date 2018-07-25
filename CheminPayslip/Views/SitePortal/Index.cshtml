@@ -1,0 +1,36 @@
+﻿@using CheminPayslip.Models
+@model CheminPayslip.Models.SiteValidLogin
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+<br/>
+<h2>Site Login</h2>
+
+<br/>
+<br/>
+@if (!Model.IsValid)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+
+    </div>
+}
+<br/>
+<br/>
+
+@using (Html.BeginForm("Login", "SitePortal"))
+{
+    <div class="form-group">
+    @Html.LabelFor(m => m.EmployeeId)
+    @Html.TextBoxFor(m => m.EmployeeId,null,new {@class="form-control"})
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password,new {@class="form-control"})
+
+      <button class="btn btn-primary">Submit</button>
+    </div>
+}

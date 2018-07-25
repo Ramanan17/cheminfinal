@@ -1,0 +1,51 @@
+﻿
+
+@{
+    ViewBag.Title = "ExcelUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ExcelUpload</h2>
+<style>
+    input[type="file"] {
+       
+        font-size: large;
+    }
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        font-size: large;
+    }
+</style>
+
+<div align="center">  
+    @if (ViewBag.Message != null)  
+    {  
+        <span class="alert alert-warning"> @ViewBag.Message</span>  
+    }  
+    
+    <div align="right" class="btn btn-default">  
+        @using (Html.BeginForm("UploadExcel", "ExcelDemo2", FormMethod.Post, new { @enctype = "multipart/form-data" }))  
+        {  
+            <input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br />  
+            <input type="submit" class="btn btn-primary" name="UploadNewEmployee" id="fileUploadExcel" value="Upload Employee Details for @DateTime.Now.AddMonths(-2).ToString("MMMM")" />  
+        }  
+    </div>  
+</div>
+
+
+@section scripts
+{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>  
+  
+        $('#fileUploadExcel').click(function (e) {  
+            if ($('#fileUpload').val() === "")   
+            {  
+                sweetAlert("Oops...!!!", "Please select file", "error");  
+                return false;  
+            }  
+  
+        });  
+  
+    </script>  
+}
+

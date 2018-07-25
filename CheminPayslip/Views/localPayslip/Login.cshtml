@@ -1,0 +1,28 @@
+﻿@model CheminPayslip.Models.locallogin
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+@if (!Model.isValid)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+<br/>
+<h2>Local Employee Login</h2>
+<br/>
+<br/>
+@using (Html.BeginForm("Result","localPayslip"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.EmpId)
+        @Html.TextBoxFor(m => m.EmpId,null,new{@class="form-control"})
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+}
+

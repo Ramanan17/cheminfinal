@@ -1,0 +1,55 @@
+﻿@model CheminPayslip.Models.TableCheckViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn {
+        font-size: larger;
+    }
+</style>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+<h2>Disable Table View for Employees</h2>
+<br/>
+<br/>
+
+<h4>Please select the month you want to disable</h4>
+@using (Html.BeginForm("CheckTableValid", "Home"))
+{
+    <div class="form-group">
+        <div class="checkbox">
+            <label>@DateTime.Now.AddMonths(-1).ToString("MMMM")@Html.CheckBoxFor(m => m.IsTable1Valid, new { @class = "form-control" }) </label>
+        </div>
+        <br/>
+
+        <div class="checkbox">
+            <label>@DateTime.Now.AddMonths(-2).ToString("MMMM") @Html.CheckBoxFor(m => m.IsTable2Valid, new { @class = "form-control " }) </label>
+        </div>
+        <br/>
+        <div class="checkbox">
+            <label>@DateTime.Now.AddMonths(-3).ToString("MMMM") @Html.CheckBoxFor(m => m.IsTable3Valid, new { @class = "form-control" }) </label>
+        </div>
+       
+       
+        
+        <br/>
+
+        <input type="submit" class="btn btn-primary" value="Submit" />
+
+    </div>
+}
+<br/>
+<br/>
+@if (Model.processValid)
+{
+    <div class="alert alert-info">
+        <h6>@Model.Message</h6>
+    </div>
+}

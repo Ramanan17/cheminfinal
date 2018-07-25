@@ -1,0 +1,92 @@
+﻿@model CheminPayslip.Models.SalaryDetails
+@{
+    ViewBag.Title = "Salary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+<br/>
+<h2>Edit Salary Details</h2>
+<br/>
+<br/>
+@using (Html.BeginForm("UpdateSalary","SitePortal",new {user = Model.user},FormMethod.Post))
+{
+<div class="form-group">
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    <br />
+    <br />
+    @Html.LabelFor(m => m.user)
+    @Html.TextBoxFor(m => m.user, null, new { @readonly = "readonly", @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, null, new { @readonly = "readonly", @class = "form-control" })
+    @Html.LabelFor(m => m.EmpId)
+    @Html.TextBoxFor(m => m.EmpId, null, new { @readonly = "readonly", @class = "form-control" })
+
+    @Html.LabelFor(m => m.Design)
+    @Html.TextBoxFor(m => m.Design, null, new { @readonly = "readonly", @class = "form-control" })
+
+    @Html.LabelFor(m => m.nod)
+    @Html.TextBoxFor(m => m.nod, null, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.nodcoff)
+    @Html.TextBoxFor(m => m.nodcoff, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.nohours)
+    @Html.TextBoxFor(m => m.nohours, null, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.date)
+    @Html.EditorFor(m => m.date, null, new { @class = "form-control" })
+    <br />
+
+    @Html.LabelFor(m => m.Otherallow)
+    @Html.TextBoxFor(m => m.Otherallow, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.tea)
+    @Html.TextBoxFor(m => m.tea, null, new { @class = "form-control" })
+    <br/>
+    @Html.LabelFor(m => m.LIC)
+    @Html.TextBoxFor(m => m.LIC, null, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.HouseRent)
+    @Html.TextBoxFor(m => m.HouseRent, null, new { @class = "form-control" })
+    <br />
+    <h4 style="font-weight: bold">Deductions</h4>
+    <hr />
+    @Html.LabelFor(m => m.Advances)
+    @Html.TextBoxFor(m => m.Advances, null, new { @class = "form-control" })
+
+    @Html.LabelFor(m => m.TDS)
+    @Html.TextBoxFor(m => m.TDS, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.recovery)
+    @Html.TextBoxFor(m => m.recovery, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.ptax)
+    @Html.TextBoxFor(m => m.ptax, null, new { @class = "form-control" })
+    <br />
+    <h4 style="font-weight: bold">Leave Details</h4>
+    <hr />
+    @Html.LabelFor(m => m.CLBAL)
+    @Html.TextBoxFor(m => m.CLBAL, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.CLCR)
+    @Html.TextBoxFor(m => m.CLCR, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.CLTAK)
+    @Html.TextBoxFor(m => m.CLTAK, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.issueDate)
+    @Html.TextBoxFor(m => m.issueDate, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.issued)
+    @Html.CheckBoxFor(m => m.issued, new { @class = "form-control" })
+    @Html.LabelFor(m => m.resignedDate)
+    @Html.TextBoxFor(m => m.resignedDate, null, new { @class = "form-control" })
+    @Html.LabelFor(m => m.resigned)
+    @Html.CheckBoxFor(m => m.resigned, new { @class = "form-control" })
+
+
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    <br />
+    <br />
+</div>
+}
+
