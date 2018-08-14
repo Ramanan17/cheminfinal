@@ -17,5 +17,6 @@ namespace CheminPayslip.Models
         public double? NetWages { get; set; }
         public string grade { get; set; }
         public int? EmpId { get; set; }
+        public double? advance { get; set; }
     }
 }

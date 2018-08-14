@@ -1,4 +1,4 @@
-﻿
+﻿<
 @{
     ViewBag.Title = "ManageAdmin";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -71,3 +71,12 @@
 <br />
 <br />
 @Html.ActionLink("Add/Edit Sub Contractors", "Index", "SubContractor", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Copy Values to Previous Month", "CopyPreviousMonth", "Admin", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Reset Values for the Current Month", "ClearSalaryDetails", "Admin", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+@Html.ActionLink("Process Salary For Previous Month", "ProcessSalary2", "SitePortal", null, new { @class = "btn btn-primary" })

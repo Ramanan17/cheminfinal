@@ -736,9 +736,27 @@
     <Compile Include="Migrations\201807231508201_forprevious.Designer.cs">
       <DependentUpon>201807231508201_forprevious.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807251504394_cplace.cs" />
+    <Compile Include="Migrations\201807251504394_cplace.Designer.cs">
+      <DependentUpon>201807251504394_cplace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807281606422_addAccounts.cs" />
+    <Compile Include="Migrations\201807281606422_addAccounts.Designer.cs">
+      <DependentUpon>201807281606422_addAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807291729584_backup.cs" />
+    <Compile Include="Migrations\201807291729584_backup.Designer.cs">
+      <DependentUpon>201807291729584_backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808071606035_MasterDetails3.cs" />
+    <Compile Include="Migrations\201808071606035_MasterDetails3.Designer.cs">
+      <DependentUpon>201808071606035_MasterDetails3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AccTrans.cs" />
     <Compile Include="Models\AdminLocal.cs" />
+    <Compile Include="Models\booktype.cs" />
     <Compile Include="Models\Collections.cs" />
     <Compile Include="Models\Commitments.cs" />
     <Compile Include="Models\Commitments2.cs" />
@@ -747,16 +765,21 @@
     <Compile Include="Models\EmployeeDetails.cs" />
     <Compile Include="Models\EmployeeDetails2.cs" />
     <Compile Include="Models\EmployeeDetails3.cs" />
+    <Compile Include="Models\expensetype.cs" />
+    <Compile Include="Models\groupMaster.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\issueMoel.cs" />
     <Compile Include="Models\locallist.cs" />
     <Compile Include="Models\locallogin.cs" />
     <Compile Include="Models\localpaymodel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MasterDetails2.cs" />
+    <Compile Include="Models\MasterDetails3.cs" />
+    <Compile Include="Models\MasterDetailsBackUp.cs" />
     <Compile Include="Models\MasterSite.cs" />
     <Compile Include="Models\MasterSiteViewModel.cs" />
+    <Compile Include="Models\ModelTable.cs" />
     <Compile Include="Models\myLogin.cs" />
+    <Compile Include="Models\nefttable.cs" />
     <Compile Include="Models\PermanentReport.cs" />
     <Compile Include="Models\permlist.cs" />
     <Compile Include="Models\PlaceReportModel.cs" />
@@ -777,6 +800,7 @@
     <Compile Include="Models\UploadImage.cs" />
     <Compile Include="Models\validateatsite.cs" />
     <Compile Include="Models\ValidateLogin.cs" />
+    <Compile Include="Models\voucherTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -896,7 +920,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -978,6 +1004,9 @@
     <Content Include="Views\SitePortal\CurrentDate.cshtml" />
     <Content Include="Views\uploadSalaryExcel\ExcelUpload.cshtml" />
     <Content Include="Views\Issue\InitPage.cshtml" />
+    <Content Include="Views\Issue\InitPageOld.cshtml" />
+    <Content Include="Views\Admin\SuccessCopy.cshtml" />
+    <Content Include="Views\Admin\Updated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1113,6 +1142,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807231508201_forprevious.resx">
       <DependentUpon>201807231508201_forprevious.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251504394_cplace.resx">
+      <DependentUpon>201807251504394_cplace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807281606422_addAccounts.resx">
+      <DependentUpon>201807281606422_addAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807291729584_backup.resx">
+      <DependentUpon>201807291729584_backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071606035_MasterDetails3.resx">
+      <DependentUpon>201808071606035_MasterDetails3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

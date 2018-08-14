@@ -30,11 +30,21 @@ namespace CheminPayslip.Controllers.api
             return Ok(employees);
         }
 
-        [Route("employeeDetails")]
+        [Route("employeeDetails/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetEmployees()
+        public IHttpActionResult GetEmployees(int outid)
         {
-            var employee = _context.Employess.ToList();
+            dynamic employee;
+            if (outid == 0)
+            {
+                employee = _context.Employee2.Where(m => m.Place != "PIC").ToList();
+
+            }
+            else
+            {
+                employee = _context.Employess.Where(m => m.Place != "PIC").ToList();
+
+            }
             var emplist = new List<permlist>();
             int i = 1;
             foreach (var emp in employee)
@@ -45,9 +55,9 @@ namespace CheminPayslip.Controllers.api
                     EmpId = emp.EmployeeId,
                     Designation = emp.DESIGNATION,
                     EmployeeName = emp.Name,
-                    Grade = emp.GRADE,
-                    GrossWages = emp.TOTAL,
-                    place = emp.Place
+                    Grade = emp.gradeid.ToString(),
+                    GrossWages = emp.CTC,
+                    place = emp.cPlace
 
                 };
 
@@ -59,55 +69,115 @@ namespace CheminPayslip.Controllers.api
             return Ok(emplist);
         }
 
-        [Route("employeelocal")]
+        [Route("employeelocal/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetLocal()
+        public IHttpActionResult GetLocal(int  outid)
         {
             int i = 1;
-            var local = _context.Master.ToList();
-            var lists = new List<locallist>();
-            foreach (var loc in local)
+           
+            if (outid == 0)
             {
-                var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid.ToString() == loc.placeid);
-
-                var sub = _context.Sub.SingleOrDefault(m => m.SubContractId == loc.SUBID);
-                string name = string.Empty;
-                name = sub == null ? "Direct Employee" : sub.SubContractorName;
-                if (place != null)
+                var local = _context.Master4.ToList();
+                var lists = new List<locallist>();
+                foreach (var loc in local)
                 {
-                    var list = new locallist()
+                    var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid.ToString() == loc.placeid);
+
+                    var sub = _context.Sub.SingleOrDefault(m => m.SubContractId == loc.SUBID);
+                    string name = string.Empty;
+                    name = sub == null ? "Direct Employee" : sub.SubContractorName;
+                    if (place != null && place.Placeid != 152)
                     {
-                        EmpId = loc.EmpId,
-                        Id = i,
-                        Designation = loc.Design,
-                        EmployeeName = loc.name,
-                        perday = loc.perdaysalary,
-                        place = place.PlaceName,
-                        SubContractor = name
+                        var list = new locallist()
+                        {
+                            EmpId = loc.EmpId,
+                            Id = i,
+                            Designation = loc.Design,
+                            EmployeeName = loc.name,
+                            perday = loc.perdaysalary,
+                            place = place.PlaceName,
+                            SubContractor = name
 
 
-                   
-                    };
-                    i++;
-                    lists.Add(list);
+
+                        };
+                        i++;
+                        lists.Add(list);
+                    }
                 }
+                return Ok(lists);
             }
+            else
+            {
+               var  local = _context.Master.ToList();
+                var lists = new List<locallist>();
+                foreach (var loc in local)
+                {
+                    var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid.ToString() == loc.placeid);
 
-            return Ok(lists);
+                    var sub = _context.Sub.SingleOrDefault(m => m.SubContractId == loc.SUBID);
+                    string name = string.Empty;
+                    name = sub == null ? "Direct Employee" : sub.SubContractorName;
+                    if (place != null && place.Placeid != 152)
+                    {
+                        var list = new locallist()
+                        {
+                            EmpId = loc.EmpId,
+                            Id = i,
+                            Designation = loc.Design,
+                            EmployeeName = loc.name,
+                            perday = loc.perdaysalary,
+                            place = place.PlaceName,
+                            SubContractor = name
+
+
+
+                        };
+                        i++;
+                        lists.Add(list);
+                    }
+                }
+                return Ok(lists);
+
+            }
+          
+
+           
         }
 
-        [Route("Commit")]
+        [Route("Commit/{id}")]
         [HttpGet]
-        public IHttpActionResult GetCommitment()
+        public IHttpActionResult GetCommitment(int id)
         {
-            var commitment = _context.Commitment.Where(m=> m.EGross != 0|| m.LGross!=0).ToList();
+            dynamic commitment;
+            if (id == 0)
+            {
+                commitment= _context.Commitment2.Where(m => m.EGross != 0 || m.LGross != 0).ToList();
+
+            }
+            else
+            {
+                commitment = _context.Commitment.Where(m => m.EGross != 0 || m.LGross != 0).ToList();
+
+            }
             return Ok(commitment);
         }
 
-        [Route("local/{id}")]
-        public IHttpActionResult GetLocal(int id)
+        [Route("local/{id}/{outid}")]
+        public IHttpActionResult GetLocal(int id,int outid)
         {
-            var employees = _context.Master.Where(m => m.placeid == id.ToString()).ToList();
+            dynamic employees;
+            if (outid == 0)
+            {
+                employees = _context.Master4.Where(m => m.placeid == id.ToString()).ToList();
+
+            }
+            else
+            {
+                employees = _context.Master.Where(m => m.placeid == id.ToString()).ToList();
+
+
+            }
             var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid == id);
             if (place == null)
             {
@@ -140,10 +210,20 @@ namespace CheminPayslip.Controllers.api
            
             return Ok(reports);
         }
-        [Route("ILOUT/{id}")]
-        public IHttpActionResult GetLocalOUt(int id)
+        [Route("ILOUT/{id}/{outid}")]
+        public IHttpActionResult GetLocalOUt(int id,int outid)
         {
-            var employees = _context.Master.Where(m => m.placeid == id.ToString() && (m.issued==null || m.issued==false)).ToList();
+            dynamic employees;
+            if (outid == 0)
+            {
+                employees = _context.Master4.Where(m => m.placeid == id.ToString() && (m.issued == null || m.issued == false)).ToList();
+
+            }
+            else
+            {
+                employees = _context.Master.Where(m => m.placeid == id.ToString() && (m.issued == null || m.issued == false)).ToList();
+
+            }
             var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid == id);
             if (place == null)
             {
@@ -164,7 +244,8 @@ namespace CheminPayslip.Controllers.api
                         name = employee.name,
                         NetWages = employee.netwages,
                         placename = place.PlaceName,
-                        EmpId = employee.EmpId
+                        EmpId = employee.EmpId,
+                        advance = employee.advance
 
 
 
@@ -178,11 +259,21 @@ namespace CheminPayslip.Controllers.api
         }
 
 
-        [Route("report/{place}")]
+        [Route("report/{place}/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetPermanent(string place)
+        public IHttpActionResult GetPermanent(string place,int outid)
         {
-            var employees = _context.Employess.Where(m => m.Place == place).ToList();
+            dynamic employees;
+            if (outid == 0)
+            {
+                employees = _context.Employee2.Where(m => m.Place == place).ToList();
+
+            }
+            else
+            {
+                employees = _context.Employess.Where(m => m.Place == place).ToList();
+
+            }
             var reports = new List<PermanentReport>();
             foreach (var employee in employees)
             {
@@ -217,11 +308,21 @@ namespace CheminPayslip.Controllers.api
 
             return Ok(reports);
         }
-        [Route("Out/{place}")]
+        [Route("Out/{place}/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetPermanentIssued(string place)
+        public IHttpActionResult GetPermanentIssued(string place,int outid)
         {
-            var employees = _context.Employess.Where(m => m.Place == place && (m.issued==(false || m.issued== null) )).ToList();
+            dynamic employees;
+            if (outid == 0)
+            {
+                employees = _context.Employee2.Where(m => m.Place == place && (m.issued == (false || m.issued == null))).ToList();
+
+            }
+            else
+            {
+                employees = _context.Employess.Where(m => m.Place == place && (m.issued == (false || m.issued == null))).ToList();
+
+            }
             var reports = new List<PermanentReport>();
             foreach (var employee in employees)
             {
@@ -238,7 +339,9 @@ namespace CheminPayslip.Controllers.api
                         NetWages = employee.NETTOTAL,
                         grade = employee.GRADE,
                         EmpId = employee.EmployeeId,
-                        placename = employee.Place
+                        placename = employee.Place,
+                        advance = employee.SALADV,
+                        
 
 
 
@@ -256,11 +359,21 @@ namespace CheminPayslip.Controllers.api
             return Ok(reports);
         }
 
-        [Route("OutMaster")]
+        [Route("OutMaster/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetOutMaster()
+        public IHttpActionResult GetOutMaster(int outid)
         {
-            var employees = _context.Master.SingleOrDefault(m => m.EmpId ==14);
+            dynamic employees;
+            if (outid == 0)
+            {
+                 employees = _context.Master4.SingleOrDefault(m => m.EmpId == 14);
+
+            }
+            else
+            {
+                 employees = _context.Master.SingleOrDefault(m => m.EmpId == 14);
+
+            }
             if (employees == null)
             {
                 return BadRequest();
@@ -268,13 +381,24 @@ namespace CheminPayslip.Controllers.api
 
             var date = Convert.ToDateTime(employees.date);
 
-            return Ok(date.ToString("Y"));
+            return Ok(date.ToString("M"));
         }
-        [Route("OutLocal")]
+        [Route("OutLocal/{outid}")]
         [HttpGet]
-        public IHttpActionResult GetOutLocal()
+        public IHttpActionResult GetOutLocal(int outid)
         {
-            var employees = _context.Employess.SingleOrDefault(m => m.EmployeeId== 2029);
+            dynamic employees;
+            if (outid == 0)
+            {
+
+                employees = _context.Employee2.SingleOrDefault(m => m.EmployeeId == 106);
+                
+            }
+            else
+            {
+                employees = _context.Employess.SingleOrDefault(m => m.EmployeeId == 106);
+
+            }
             if (employees == null)
             {
                 return BadRequest();

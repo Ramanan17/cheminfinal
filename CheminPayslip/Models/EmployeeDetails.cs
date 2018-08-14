@@ -76,7 +76,9 @@ namespace CheminPayslip.Models
         public string HODAYS { get; set; }
         public bool? issued { get; set; }
         public string issueDate { get; set; }
-       
+        public string cPlace { get; set; }
+        public double? gradeid { get; set; }
+        public bool? Active { get; set; }
 
 
     }

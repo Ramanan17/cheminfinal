@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CheminPayslip.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CheminPayslip.Controllers
 {
@@ -23,12 +24,22 @@ namespace CheminPayslip.Controllers
             _context.Dispose();
         }
         // GET: Issue
-        public ActionResult InitPage(int id,int subid)
+        public ActionResult InitPage(int id,int subid,int old)
         {
             var issueList = new List<issueMoel>();
+            var issueList1 = new List<issueMoel>();
             if (subid != 0)
             {
-                var emp = _context.Master.Where(m => m.SUBID == subid);
+                dynamic emp;
+                if (old == 0)
+                {
+                     emp= _context.Master4.Where(m => m.SUBID == subid);
+                }
+                else
+                {
+                    emp = _context.Master.Where(m => m.SUBID == subid);
+                }
+               
                
                 foreach (var e in emp)
                 {
@@ -56,8 +67,18 @@ namespace CheminPayslip.Controllers
             }
             else
             {
-                var emp = _context.Master.Where(m => m.placeid == id.ToString() && m.SUBID ==0);
-              //  var issueList = new List<issueMoel>();
+                dynamic emp;
+                if (old == 0)
+                {
+                    emp = _context.Master4.Where(m => m.placeid == id.ToString() && m.SUBID == 0);
+
+                }
+                else
+                {
+                    emp = _context.Master.Where(m => m.placeid == id.ToString() && m.SUBID == 0);
+
+                }
+                //  var issueList = new List<issueMoel>();
                 foreach (var e in emp)
                 {
                     bool i  = true;
@@ -83,16 +104,34 @@ namespace CheminPayslip.Controllers
 
             }
 
-            return View(issueList);
+            if (old == 0)
+            {
+                return View("InitPageOld",issueList);
+            }
+            else
+            {
+                return View(issueList);
+            }
+            
 
         }
 
         [HttpPost]
-        public ActionResult Submit(List<issueMoel> issue)
+        public ActionResult Submit(List<issueMoel> issue,int old)
         {
             foreach (var iss in issue)
             {
-                var employee = _context.Master.SingleOrDefault(m => m.EmpId == iss.EmpId);
+                dynamic employee;
+                if (old == 0)
+                {
+                    employee = _context.Master4.FirstOrDefault(m => m.EmpId == iss.EmpId);
+
+                }
+                else
+                {
+                    employee = _context.Master.SingleOrDefault(m => m.EmpId == iss.EmpId);
+
+                }
                 if (employee == null)
                 {
                     return HttpNotFound();

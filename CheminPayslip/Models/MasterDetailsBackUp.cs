@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Web;
-using AutoMapper.Execution;
+using OfficeOpenXml.Utils;
 
 namespace CheminPayslip.Models
 {
-    public class MasterSite
+    public class MasterDetailsBackUp
     {
         public int Id { get; set; }
-      
+        [Required]
         public int EmpId { get; set; }
         public string name { get; set; }
         public string Design { get; set; }
-        public float?  perdaysalary { get; set; }
+        public float? perdaysalary { get; set; }
         public float? nod { get; set; }
         public float? total { get; set; }
         public float? nodcoff { get; set; }
@@ -23,14 +22,14 @@ namespace CheminPayslip.Models
         public float? otpperhour { get; set; }
         public float? nohours { get; set; }
         public float? otamt { get; set; }
-        
+
         public float? TEA { get; set; }
         public float? grosswages { get; set; }
         public float? otherallow { get; set; }
         public float? advance { get; set; }
         public float? revocery { get; set; }
         public float? pf { get; set; }
-        public float? esi{ get; set; }
+        public float? esi { get; set; }
         public float? TDS { get; set; }
         public float? dedtot { get; set; }
         public float? netwages { get; set; }
@@ -53,7 +52,7 @@ namespace CheminPayslip.Models
         public string panno { get; set; }
         public string doj { get; set; }
         public byte[] photo { get; set; }
-        public double?  ptax { get; set; }
+        public double? ptax { get; set; }
         public int? SUBID { get; set; }
         public int? HouseRent { get; set; }
         public float? clcr { get; set; }
@@ -68,6 +67,8 @@ namespace CheminPayslip.Models
         public string issueDate { get; set; }
         public bool? resigned { get; set; }
         public string resignedDate { get; set; }
-        public double? misc { get; set; }
+        public string Misc { get; set; }
+        public string Misc2 { get; set; }
+
     }
 }

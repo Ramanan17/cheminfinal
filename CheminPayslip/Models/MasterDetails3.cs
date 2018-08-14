@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CheminPayslip.Models
 {
-    public class MasterDetails2
+    public class MasterDetails3
     {
 
         public int Id { get; set; }
@@ -65,5 +65,6 @@ namespace CheminPayslip.Models
         public string issueDate { get; set; }
         public bool? resigned { get; set; }
         public string resignedDate { get; set; }
+        public string Misc { get; set; }
     }
 }

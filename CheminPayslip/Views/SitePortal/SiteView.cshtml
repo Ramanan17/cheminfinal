@@ -57,13 +57,16 @@ else
 @if (Model.User == "admin")
 {
     <span class="btn btn-primary">
-        @Html.ActionLink("Edit Issue Date","InitPage","Issue",new {id = placeid,subid=subid},null)
+        @Html.ActionLink("Edit Issue Date","InitPage","Issue",new {id = placeid,subid=subid,old=1},null)
+    </span>
+
+    <span class="btn btn-primary">
+        @Html.ActionLink("Edit Issue Date for previous month","InitPage","Issue",new {id = placeid,subid=subid,old=0},null)
     </span>
 
 }
 
 <br />
-
 <table id="table_id" class="table table-hover table-bordered">
     <thead>
         <tr>

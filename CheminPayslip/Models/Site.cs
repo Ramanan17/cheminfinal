@@ -26,7 +26,14 @@ namespace CheminPayslip.Models
         public double? Esitot { get; set; }
         public double? Eetot { get; set; }
         public double? Nettot { get; set; }
-
-
+        public double? opbal { get; set; }
+        public double? clbal { get; set; }
+        public bool? Active { get; set; }
+        public double? Adhoc { get; set; }
+        public string startDate { get; set; }
+        public string EndDate { get; set; }
+        public double? billTotal { get; set; }
+        public double? BudTotal { get; set; }
+        public double? BudOutstanding { get; set; }   
     }
 }

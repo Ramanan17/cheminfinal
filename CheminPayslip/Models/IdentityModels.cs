@@ -31,7 +31,16 @@ namespace CheminPayslip.Models
         public DbSet<CoordinatorforSite> Coordinator { get; set; }
         public DbSet<Commitments> Commitment { get; set; }
         public DbSet<Commitments2> Commitment2 { get; set; }
-        public DbSet<MasterDetails2> Master2 { get; set; }
+        public DbSet<MasterDetailsBackUp> Master3 { get; set; }
+        public DbSet<MasterDetails3> Master4 { get; set; }
+        public DbSet<AccTrans> Acc { get; set; }
+        public DbSet<booktype> book { get; set; }
+        public DbSet<expensetype> expense { get; set; }
+        public DbSet<groupMaster> GroupMaster { get; set; }
+        public DbSet<ModelTable> Model { get; set; }
+        public DbSet<voucherTable> voucher { get; set; }
+        public DbSet<nefttable> neft { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

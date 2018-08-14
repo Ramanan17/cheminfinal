@@ -1,0 +1,84 @@
+﻿@model System.Collections.Generic.List<CheminPayslip.Models.issueMoel>
+@using System.Linq
+@using CheminPayslip.Models
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+@{
+    string placename = "";
+    var _context = new ApplicationDbContext();
+    foreach (var emp in Model)
+    {
+        var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid == emp.placeid);
+        if (place != null)
+        {
+            placename = place.PlaceName;
+        }
+
+    }
+}
+
+<br />
+<h2>Please fill the details for @placename</h2>
+<br />
+<br />
+@using (Html.BeginForm("Submit", "Issue", new { old = 0 }))
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>
+                        Employee Id
+                    </td>
+                    <td>
+                        Employee Name
+                    </td>
+                    <td>
+                        Issue
+                    </td>
+                    <td>
+                        Issue Date
+                    </td>
+                </tr>
+
+            </thead>
+            <tbody>
+                @{ int i = 0;}
+                @foreach (var emp in Model)
+                {
+                    <tr>
+                        <td>
+
+                            @Html.TextBoxFor(m => m[i].EmpId, null, new { @readonly = "readonly", @class = "form-control" })
+
+
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].EmpName, null, new { @readonly = "readonly", @class = "form-control" })
+
+                        </td>
+                        <td>
+
+
+                            @Html.CheckBoxFor(m => m[i].issue, new { @class = "form-control" })
+
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].issueDate, null, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    i++;
+                }
+
+            </tbody>
+        </table>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+}
+

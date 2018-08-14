@@ -87,5 +87,10 @@ namespace CheminPayslip.Models
 
         public string placeName { get; set; }
         public string SubContractorName { get; set; }
+        [Display(Name = "Other Allowances")]
+        public double? misc { get; set; }
+       
+        [Display(Name = "PF MEMEBER ID")]
+        public string pfmember { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace CheminPayslip.Models
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public string Name { get; set; }
+        
         // public string Designation { get; set; }
         public float BASIC { get; set; }
         public float DA { get; set; }
@@ -74,6 +75,10 @@ namespace CheminPayslip.Models
         public string SITE2DAYS { get; set; }
         public string SITE3DAYS { get; set; }
         public string HODAYS { get; set; }
+        public bool? issued { get; set; }
+        public string issueDate { get; set; }
+        public string cPlace { get; set; }
+        public double? gradeid { get; set; }
 
     }
 }

@@ -119,7 +119,10 @@ namespace CheminPayslip.Controllers
                 state = emp.state,
                 phoneno = emp.phoneno,
                 fname = emp.fname,
-                Placeid = Convert.ToInt32(emp.placeid)
+                Placeid = Convert.ToInt32(emp.placeid),
+                misc=emp.misc,
+                pfmember = emp.pfMemberId
+                
 
 
 
@@ -181,7 +184,10 @@ namespace CheminPayslip.Controllers
                     phoneno = emp1.phoneno,
                     fname = emp1.fname,
                     Placeid = Convert.ToInt32(emp1.placeid),
-                    SubId = Convert.ToInt32(emp1.SUBID)
+                    SubId = Convert.ToInt32(emp1.SUBID),
+                    misc=emp.misc,
+                    pfmember = emp.pfmember
+                    
 
 
 
@@ -220,6 +226,8 @@ namespace CheminPayslip.Controllers
             selected.phoneno = emp.phoneno;
             selected.fname = emp.fname;
             selected.placeid = emp.Placeid.ToString();
+            selected.misc = emp.misc;
+            selected.pfMemberId = emp.pfmember;
             _context.SaveChanges();
             
 
@@ -357,7 +365,12 @@ namespace CheminPayslip.Controllers
                 doj = local.doj.ToShortDateString(),
                 SUBID = local.SubId,
                 pfelig = local.pfelig,
-                esielig = local.esielig
+                esielig = local.esielig,
+                misc=local.misc,
+                pfMemberId = local.pfmember,
+                
+
+                
 
 
             };
@@ -365,6 +378,103 @@ namespace CheminPayslip.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("ShowEmployees","Admin",new{id = local.Placeid});
+        }
+
+        public ActionResult CopyPreviousMonth()
+        {
+            var masters2 = _context.Master4.ToList();
+            _context.Master4.RemoveRange(masters2);
+            var masters = _context.Master.ToList();
+            foreach (var local in masters)
+            {
+               
+                var master2 = new MasterDetails3()
+                {
+
+                    EmpId = local.EmpId,
+                    placeid = local.placeid,
+                    name = local.name,
+                    Design = local.Design,
+                    perdaysalary = local.perdaysalary,
+                    otpperhour = local.otpperhour,
+                    pfuan = local.pfuan,
+                    dob = local.dob,
+                    fname = local.fname,
+                    bankacno = local.bankacno,
+                    BankName = local.BankName,
+                    esicode = local.esicode,
+                    ifsccode = local.ifsccode,
+                    address = local.address,
+                    state = local.state,
+                    pincode = local.pincode,
+                    phoneno = local.phoneno,
+                    emailId = local.emailId,
+                    aadharno = local.aadharno,
+                    panno = local.panno,
+                    doj = local.doj,
+                    SUBID = local.SUBID,
+                    pfelig = local.pfelig,
+                    esielig = local.esielig,
+                    Misc = local.misc.ToString(),
+                    pfMemberId = local.pfMemberId,
+                    nod = local.nod,
+                nodcoff = local.nodcoff,
+                nohours = local.nohours,
+                otherallow = local.otherallow,
+                HouseRent = local.HouseRent,
+               TEA = local.TEA,
+                advance = local.advance,
+                revocery = local.revocery,
+                ptax = local.ptax,
+                TDS = local.TDS,
+                clbal = local.clbal,
+                clcr = local.clcr,
+                cltax = local.cltax,
+                date =local.date,
+                issued = local.issued != null && (bool) local.issued,
+                issueDate = local.issueDate,
+                resigned = local.resigned != null && (bool) local.resigned,
+                resignedDate = local.resignedDate,
+                LIC = local.LIC,
+
+
+                };
+                _context.Master4.Add(master2);
+                _context.SaveChanges();
+            }
+
+            return View("SuccessCopy");
+
+        }
+
+        public ActionResult ClearSalaryDetails()
+        {
+            var masters = _context.Master.ToList();
+            foreach (var emp in masters)
+            {
+                emp.nod = 0;
+                emp.nodcoff = 0;
+                emp.nohours = 0;
+                emp.TDS = 0;
+                emp.otherallow = 0;
+                emp.otamt = 0;
+                emp.TEA = 0;
+                emp.HouseRent = 0;
+                emp.advance = 0;
+                emp.revocery = 0;
+                emp.clcr = 0;
+                emp.clbal = 0;
+                emp.cltax = 0;
+                emp.LIC = 0;
+                emp.ptax = 0;
+                emp.issued = false;
+                emp.issueDate = "";
+                emp.date = DateTime.Now.ToString("d");
+
+            }
+
+            _context.SaveChanges();
+            return View("Updated");
         }
 
     }

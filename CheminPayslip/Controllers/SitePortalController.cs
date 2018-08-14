@@ -83,6 +83,459 @@ namespace CheminPayslip.Controllers
         {
             return Json(master, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ProcessSalary2()
+        {
+            var delete = _context.Commitment2.SingleOrDefault(m => m.placeid == 157);
+            if (delete != null)
+            {
+                _context.Commitment2.Remove(delete);
+            }
+
+            var clear = _context.Commitment2.ToList();
+            foreach (var commit in clear)
+            {
+                commit.EESI = 0;
+                commit.EPF = 0;
+                commit.EEESI = 0;
+                commit.EGross = 0;
+                commit.ENet = 0;
+                commit.ELIC = 0;
+                commit.EEPF = 0;
+
+                commit.LEESI = 0;
+                commit.LEPF = 0;
+
+                commit.LEESI = 0;
+                commit.LGross = 0;
+                commit.LNET = 0;
+                commit.LLIC = 0;
+
+                commit.PEESI = 0;
+                commit.PEPF = 0;
+                commit.PEEESI = 0;
+                commit.PEGross = 0;
+                commit.PENet = 0;
+                commit.PELIC = 0;
+                commit.PEEPF = 0;
+
+                commit.PLEESI = 0;
+                commit.PLEPF = 0;
+                commit.PLEESI = 0;
+                commit.PLGross = 0;
+                commit.PLNET = 0;
+                commit.PLLIC = 0;
+                commit.PLEPF = 0;
+                _context.SaveChanges();
+
+
+            }
+            var employees = _context.Master4.ToList();
+            foreach (var employee in employees)
+            {
+                double placeesi = 1.75;
+                var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid.ToString() == employee.placeid);
+                if (place == null)
+                {
+                    placeesi = 1.75;
+                }
+                else
+                {
+                    if (place.EmployeeEsi != null)
+                    {
+                        placeesi = (double)place.EmployeeEsi;
+                    }
+
+                }
+                if (employee.nod == null)
+                {
+                    employee.nod = 0;
+                }
+
+                if (employee.nodcoff == null)
+                {
+                    employee.nodcoff = 0;
+                }
+
+                if (employee.otpperhour == null)
+                {
+                    employee.otpperhour = 0;
+                }
+
+                if (employee.TEA == null)
+                {
+                    employee.TEA = 0;
+                }
+
+                if (employee.HouseRent == null)
+                {
+                    employee.HouseRent = 0;
+                }
+
+                if (employee.coggamt == null)
+                {
+                    employee.coggamt = 0;
+                }
+
+                if (employee.nodcoff == null)
+                {
+                    employee.nodcoff = 0;
+                }
+
+                if (employee.TEA == null)
+                {
+                    employee.TEA = 0;
+                }
+
+                if (employee.HouseRent == null)
+                {
+                    employee.HouseRent = 0;
+                }
+
+                if (employee.otherallow == null)
+                {
+                    employee.otherallow = 0;
+                }
+
+                if (employee.nohours == null)
+                {
+                    employee.nohours = 0;
+                }
+
+                if (employee.revocery == null)
+                {
+                    employee.revocery = 0;
+                }
+
+                if (employee.ptax == null)
+                {
+                    employee.ptax = 0;
+                }
+
+                if (employee.TDS == null)
+                {
+                    employee.TDS = 0;
+                }
+
+                if (employee.total == null)
+                {
+                    employee.total = 0;
+                }
+
+                if (employee.coggamt == null)
+                {
+                    employee.coggamt = 0;
+                }
+
+                if (employee.grosswages == null)
+                {
+                    employee.grosswages = 0;
+                }
+
+                if (employee.otamt == null)
+                {
+                    employee.otamt = 0;
+                }
+
+                if (employee.esielig == null)
+                {
+                    employee.esielig = false;
+                }
+
+
+
+                employee.total = employee.nod * employee.perdaysalary;
+                employee.coggamt = employee.nodcoff * employee.perdaysalary;
+                employee.otamt = employee.otpperhour * employee.nohours;
+                employee.grosswages = ((employee.total + employee.coggamt + employee.otamt + employee.TEA +
+                                                                    employee.HouseRent + employee.otherallow));
+                if (employee.grosswages != null)
+                {
+                    employee.grosswages = (float?)Math.Round((double)employee.grosswages);
+                }
+                if (employee.pfelig.GetValueOrDefault())
+                {
+                    if (employee.total == null)
+                    {
+                        employee.total = 0;
+                        employee.pf = 0;
+                    }
+                    else
+                    {
+                        employee.pf = employee.total > 15000
+                            ? 1800
+                            : (float?)Math.Round((double)(employee.total * 0.12));
+                    }
+                }
+                else
+                {
+                    employee.pf = 0;
+                }
+
+                if (employee.esielig.GetValueOrDefault())
+                {
+                    if (employee.grosswages == null)
+                    {
+                        employee.grosswages = 0;
+                        employee.esi = 0;
+                    }
+                    else
+                    {
+                        employee.esi = (float?)Math.Round((double)(employee.grosswages * (placeesi / 100)));
+                    }
+                }
+                else
+                {
+                    employee.esi = 0;
+                }
+
+                if (employee.dedtot == null)
+                {
+                    employee.dedtot = 0;
+                }
+
+                if (employee.netwages == null)
+                {
+                    employee.netwages = 0;
+                }
+
+                if (employee.advance == null)
+                {
+                    employee.advance = 0;
+                }
+
+                employee.dedtot = (float?)Math.Round((double)(employee.pf + employee.advance + employee.revocery + employee.esi +
+                                                                (float?)employee.TDS + (float?)employee.ptax));
+                employee.netwages = (float?)((employee.grosswages - employee.dedtot));
+                if (employee.netwages != null)
+                {
+                    employee.netwages = (float?)Math.Round((double)employee.netwages);
+                }
+
+                // Console.WriteLine("Credential file saved to: " + credPath);
+
+                _context.SaveChanges();
+
+
+            }
+
+            var result2 = _context.Employee2.Where(m => m.issued == false).GroupBy(m => m.Place).Select(g => new { total = g.Sum(i => i.TOTAL), pf = g.Sum(i => i.PF), ESI = g.Sum(i => i.ESI), lic = g.Sum(i => i.LIC), net = g.Sum(i => i.NETTOTAL), place = g.Key }).ToList();
+            foreach (var enter in result2)
+            {
+                var commit = _context.Commitment2.SingleOrDefault(m => m.PlaceName == enter.place);
+                if (commit != null)
+                {
+                    commit.PEPF = Math.Round(enter.pf);
+                    commit.PELIC = Math.Round(enter.lic);
+                    commit.PEEPF = Math.Round(enter.pf);
+                    commit.PEESI = Math.Round(enter.ESI);
+                    commit.PEEESI = Math.Round(enter.ESI * (4.75 / 1.75));
+                    commit.PEGross = Math.Round(enter.total);
+                    commit.PENet = Math.Round(enter.net);
+
+                    _context.SaveChanges();
+                }
+
+            }
+            var result3 = _context.Employee2.GroupBy(m => m.Place).Select(g => new { total = g.Sum(i => i.TOTAL), pf = g.Sum(i => i.PF), ESI = g.Sum(i => i.ESI), lic = g.Sum(i => i.LIC), net = g.Sum(i => i.NETTOTAL), place = g.Key }).ToList();
+            foreach (var enter in result3)
+            {
+                var commit = _context.Commitment2.SingleOrDefault(m => m.PlaceName == enter.place);
+                if (commit != null)
+                {
+                    commit.EPF = Math.Round(enter.pf);
+                    commit.ELIC = Math.Round(enter.lic);
+                    commit.EEPF = Math.Round(enter.pf);
+                    commit.EESI = Math.Round(enter.ESI);
+                    commit.EEESI = Math.Round(enter.ESI * (4.75 / 1.75));
+                    commit.EGross = Math.Round(enter.total);
+                    commit.ENet = Math.Round(enter.net);
+
+                    _context.SaveChanges();
+                }
+
+            }
+
+
+            var commits = _context.Commitment2.ToList();
+            foreach (var commit in commits)
+            {
+                double grosstot = 0;
+                double grosspf = 0;
+                double nettot = 0;
+                double ESI = 0;
+                double EESI = 0;
+                double LIC = 0;
+                double grosstotL = 0;
+                double grosspfL = 0;
+                double nettotL = 0;
+                double ESIL = 0;
+                double EESIL = 0;
+                double LICL = 0;
+                var lemployee = _context.Master4.Where(m => m.placeid == commit.placeid.ToString()).ToList();
+
+
+                foreach (var emp in lemployee)
+                {
+                    if (emp.issued == false)
+                    {
+                        if (emp.grosswages != null)
+                        {
+                            grosstotL = (double)(grosstotL + emp.grosswages);
+                        }
+                        else
+                        {
+                            emp.grosswages = 0;
+                            grosstotL = (double)(grosstotL + emp.grosswages);
+                        }
+                        if (emp.pf != null)
+                        {
+                            grosspfL = (double)(grosspfL + emp.pf);
+                        }
+                        else
+                        {
+                            emp.pf = 0;
+                            grosspfL = (double)(grosspfL + emp.pf);
+                        }
+
+                        if (emp.netwages != null)
+                        {
+                            nettotL = (double)(nettotL + emp.netwages);
+                        }
+                        else
+                        {
+                            emp.netwages = 0;
+                            nettotL = (double)(nettotL + emp.netwages);
+
+                        }
+
+                        if (emp.esi != null)
+                        {
+                            ESIL = (double)(ESIL + emp.esi);
+
+                        }
+                        else
+                        {
+                            emp.esi = 0;
+                            ESIL = (double)(ESIL + emp.esi);
+                        }
+
+                        if (emp.LIC != null)
+                        {
+                            LICL = (double)(LICL + emp.LIC);
+                        }
+                        else
+                        {
+                            emp.LIC = 0;
+                            LICL = (double)(LICL + emp.LIC);
+                        }
+
+
+
+                    }
+
+
+                    if (emp.grosswages != null)
+                    {
+                        grosstot = (double)(grosstot + emp.grosswages);
+                    }
+                    else
+                    {
+                        emp.grosswages = 0;
+                        grosstot = (double)(grosstot + emp.grosswages);
+                    }
+
+                    if (emp.pf != null)
+                    {
+                        grosspf = (double)(grosspf + emp.pf);
+                    }
+                    else
+                    {
+                        emp.pf = 0;
+                        grosspf = (double)(grosspf + emp.pf);
+                    }
+
+                    if (emp.netwages != null)
+                    {
+                        nettot = (double)(nettot + emp.netwages);
+                    }
+                    else
+                    {
+                        emp.netwages = 0;
+                        nettot = (double)(nettot + emp.netwages);
+
+                    }
+
+                    if (emp.esi != null)
+                    {
+                        ESI = (double)(ESI + emp.esi);
+
+                    }
+                    else
+                    {
+                        emp.esi = 0;
+                        ESI = (double)(ESI + emp.esi);
+                    }
+
+                    if (emp.LIC != null)
+                    {
+                        LIC = (double)(LIC + emp.LIC);
+                    }
+                    else
+                    {
+                        emp.LIC = 0;
+                        LIC = (double)(LIC + emp.LIC);
+                    }
+
+
+                }
+
+                double? pesi = 0;
+                double? peesi = 0;
+                var place = _context.SiteAdmin.SingleOrDefault(m => m.Placeid == commit.placeid);
+                if (place != null)
+                {
+                    pesi = place.EmployeeEsi == null ? 1.75 : place.EmployeeEsi;
+                    peesi = place.EmployerEsi == null ? 4.75 : place.EmployerEsi;
+                }
+                else
+                {
+                    pesi = 1.75;
+                    peesi = 4.75;
+                }
+
+
+                EESI = (double)(ESI * (peesi / 100));
+                ESI = (double)(ESI * (pesi / 100));
+
+                commit.LESI = Math.Round(ESI);
+                commit.LEESI = Math.Round(EESI);
+                commit.LEPF = Math.Round(grosspf);
+                commit.LPF = Math.Round(grosspf);
+                commit.LNET = Math.Round(nettot);
+                commit.LLIC = Math.Round(LIC);
+                commit.LGross = Math.Round(grosstot);
+
+                commit.PLESI = Math.Round(ESIL);
+                commit.PLEESI = Math.Round(EESIL);
+                commit.PLEPF = Math.Round(grosspfL);
+                commit.PLPF = Math.Round(grosspfL);
+                commit.PLNET = Math.Round(nettotL);
+                commit.PLLIC = Math.Round(LICL);
+                commit.PLGross = Math.Round(grosstotL);
+
+                _context.SaveChanges();
+            }
+
+
+
+            var result = new ProcessSalary()
+            {
+                IsSuccessful = true
+            };
+            return View("ProcessResult", result);
+        }
+
+
         public ActionResult ProcessSalary()
         {
             var delete = _context.Commitment.SingleOrDefault(m => m.placeid == 157);
@@ -701,7 +1154,9 @@ namespace CheminPayslip.Controllers
                     fname = emp1.fname,
                     Placeid = Convert.ToInt32(emp1.placeid),
                     SubId = Convert.ToInt32(emp1.SUBID),
-                    placeName = place.PlaceName
+                    placeName = place.PlaceName,
+                    pfmember = emp1.pfMemberId
+                    
                     
 
 
@@ -741,6 +1196,7 @@ namespace CheminPayslip.Controllers
             selected.phoneno = emp.phoneno;
             selected.fname = emp.fname;
             selected.placeid = emp.Placeid.ToString();
+            selected.pfMemberId = emp.pfmember;
             _context.SaveChanges();
             if (emp.SubId == 0)
             {
