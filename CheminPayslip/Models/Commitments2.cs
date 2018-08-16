@@ -40,7 +40,7 @@ namespace CheminPayslip.Models
         public double? PLNET { get; set; }
         public double? PLLIC { get; set; }
         public double? ELIC { get; set; }
-        public double? exptot { get; set; }
+        public double?  exptot { get; set; }
         public double? BillTot { get; set; }
         public double? BillOut { get; set; }
         public double? Adhoc { get; set; }
@@ -48,8 +48,7 @@ namespace CheminPayslip.Models
         public double? AdvTotal { get; set; }
 
 
-    }
-}
+   
 
 
     }

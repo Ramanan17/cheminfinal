@@ -752,6 +752,10 @@
     <Compile Include="Migrations\201808071606035_MasterDetails3.Designer.cs">
       <DependentUpon>201808071606035_MasterDetails3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808141551432_FinalChanges.cs" />
+    <Compile Include="Migrations\201808141551432_FinalChanges.Designer.cs">
+      <DependentUpon>201808141551432_FinalChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AccTrans.cs" />
@@ -1154,6 +1158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808071606035_MasterDetails3.resx">
       <DependentUpon>201808071606035_MasterDetails3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141551432_FinalChanges.resx">
+      <DependentUpon>201808141551432_FinalChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

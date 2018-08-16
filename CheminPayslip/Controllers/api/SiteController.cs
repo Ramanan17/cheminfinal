@@ -198,8 +198,8 @@ namespace CheminPayslip.Controllers.api
                         name = employee.name,
                         NetWages = employee.netwages,
                         placename = place.PlaceName,
-                        EmpId = employee.EmpId
-
+                        EmpId = employee.EmpId,
+                        advance = employee.advance
 
 
                     };
@@ -290,7 +290,8 @@ namespace CheminPayslip.Controllers.api
                         NetWages = employee.NETTOTAL,
                         grade = employee.GRADE,
                         EmpId = employee.EmployeeId,
-                        placename = employee.Place
+                        placename = employee.Place,
+                        advance = employee.SALADV,
 
 
 
@@ -381,7 +382,7 @@ namespace CheminPayslip.Controllers.api
 
             var date = Convert.ToDateTime(employees.date);
 
-            return Ok(date.ToString("M"));
+            return Ok(date.ToString("Y"));
         }
         [Route("OutLocal/{outid}")]
         [HttpGet]
